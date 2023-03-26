@@ -16,8 +16,7 @@ console.time('lookup 100k items')
 
 for (let i = 0; i < 100_000; i++) {
   const location = getRandomLocation()
-  const res = search(location)
-  console.log(res.length)
+  await search(location)
 }
 
 console.timeEnd('lookup 100k items')
