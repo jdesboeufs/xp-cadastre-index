@@ -10,7 +10,7 @@ import {createSpatialIndexBuilder} from './lib/spatial-index-builder.js'
 
 const DEPARTEMENTS = process.env.DEPARTEMENTS.split(',')
 
-const spatialIndexBuilder = await createSpatialIndexBuilder('./parcelles.lmdb')
+const spatialIndexBuilder = await createSpatialIndexBuilder('./data/parcelles.lmdb')
 
 const writeFeaturesLoop = setInterval(() => {
   console.log({
