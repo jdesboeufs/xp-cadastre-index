@@ -1,10 +1,10 @@
 import {search, closeDb} from './lib/search.js'
 
-const minLat = 48.66402805022
-const maxLat = 49.302906150321
+const minLat = 42.23064
+const maxLat = 50.69999
 
-const minLon = 5.816497974086
-const maxLon = 6.359570167
+const minLon = -5.19671
+const maxLon = 8.15977
 
 function getRandomLocation() {
   const lon = minLon + Math.random() * (maxLon - minLon)
