@@ -1,4 +1,4 @@
-
+import process from 'node:process'
 import {Worker} from 'node:worker_threads'
 import {pEvent} from 'p-event'
 import PQueue from 'p-queue'
@@ -32,7 +32,9 @@ async function createWorker() {
   return worker
 }
 
-const NUM_WORKERS = 4
+const NUM_WORKERS = process.env.NUM_WORKERS
+  ? Number.parseInt(process.env.NUM_WORKERS, 10)
+  : 4
 
 const _workers = await Promise.all(
   Array(NUM_WORKERS).fill(0).map(() => createWorker())
