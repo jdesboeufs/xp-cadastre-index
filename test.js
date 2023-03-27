@@ -32,12 +32,11 @@ async function createWorker() {
   return worker
 }
 
-const _workers = [
-  await createWorker(),
-  await createWorker(),
-  await createWorker(),
-  await createWorker()
-]
+const NUM_WORKERS = 4
+
+const _workers = await Promise.all(
+  Array(NUM_WORKERS).fill(0).map(() => createWorker())
+)
 
 const _jobsQueue = []
 const _idleWorkers = [..._workers]
@@ -77,12 +76,12 @@ async function execNextJob() {
 
 console.time('lookup 1m items')
 
-const q = new PQueue({concurrency: 4})
+const q = new PQueue({concurrency: NUM_WORKERS})
 
 for (let i = 0; i < 1_000_000; i++) {
   const location = getRandomLocation()
   q.add(() => enqueueJob({location}))
-  await q.onSizeLessThan(16)
+  await q.onSizeLessThan(NUM_WORKERS * 4)
 }
 
 await q.onIdle()
